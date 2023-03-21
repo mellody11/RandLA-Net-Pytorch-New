@@ -17,7 +17,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--checkpoint_path', default='output/checkpoint.tar', help='Model checkpoint path [default: None]')
 parser.add_argument('--log_dir', default='train_output', help='Dump dir to save model checkpoint [default: log]')
 parser.add_argument('--max_epoch', type=int, default=100, help='Epoch to run [default: 180]')
-parser.add_argument('--gpu', type=int, default=1, help='which gpu do you want to use [default: 2], -1 for cpu')
+parser.add_argument('--gpu', type=int, default=7, help='which gpu do you want to use [default: 2], -1 for cpu')
 
 
 FLAGS = parser.parse_args()
@@ -42,13 +42,13 @@ def log_string(out_str):
 #     np.random.seed(np.random.get_state()[1][0] + worker_id)
 
 # Create Dataset and Dataloader
-TRAIN_DATASET = SemanticKITTI('training')
-TEST_DATASET = SemanticKITTI('validation')
-print(len(TRAIN_DATASET), len(TEST_DATASET))
-TRAIN_DATALOADER = DataLoader(TRAIN_DATASET, batch_size=cfg.batch_size, shuffle=True, num_workers=20, collate_fn=TRAIN_DATASET.collate_fn)
-TEST_DATALOADER = DataLoader(TEST_DATASET, batch_size=cfg.batch_size, shuffle=True, num_workers=20, collate_fn=TEST_DATASET.collate_fn)
+train_dataset = SemanticKITTI('training')
+validation_dataset = SemanticKITTI('validation')
+print(len(train_dataset), len(validation_dataset))
+train_dataloader = DataLoader(train_dataset, batch_size=cfg.batch_size, shuffle=True, num_workers=20, collate_fn=train_dataset.collate_fn)
+validation_dataloader = DataLoader(validation_dataset, batch_size=cfg.batch_size, shuffle=True, num_workers=20, collate_fn=validation_dataset.collate_fn)
 
-print(len(TRAIN_DATALOADER), len(TEST_DATALOADER))
+print(len(train_dataloader), len(validation_dataloader))
 
 
 #################################################   network   #################################################
@@ -75,7 +75,7 @@ net.to(device)
 optimizer = optim.Adam(net.parameters(), lr=cfg.learning_rate)
 
 # Load checkpoint if there is any
-it = -1 # for the initialize value of `LambdaLR` and `BNMomentumScheduler`
+
 start_epoch = 0
 CHECKPOINT_PATH = FLAGS.checkpoint_path
 if CHECKPOINT_PATH is not None and os.path.isfile(CHECKPOINT_PATH):
@@ -103,7 +103,7 @@ def train_one_epoch():
     adjust_learning_rate(optimizer, EPOCH_CNT)
     net.train()  # set model to training mode
     iou_calc = IoUCalculator(cfg)
-    for batch_idx, batch_data in enumerate(TRAIN_DATALOADER):
+    for batch_idx, batch_data in enumerate(train_dataloader):
         t_start = time.time()
         for key in batch_data:
             if type(batch_data[key]) is list:
@@ -147,7 +147,7 @@ def evaluate_one_epoch():
     stat_dict = {} # collect statistics
     net.eval() # set model to eval mode (for bn and dp)
     iou_calc = IoUCalculator(cfg)
-    for batch_idx, batch_data in enumerate(TEST_DATALOADER):
+    for batch_idx, batch_data in enumerate(validation_dataloader):
         for key in batch_data:
             if type(batch_data[key]) is list:
                 for i in range(len(batch_data[key])):
@@ -198,10 +198,8 @@ def train(start_epoch):
         np.random.seed()
         train_one_epoch()
 
-        if EPOCH_CNT == 0 or EPOCH_CNT % 10 == 9: # Eval every 10 epochs
-            log_string('**** EVAL EPOCH %03d START****' % (epoch))
-            now_miou = evaluate_one_epoch()
-            log_string('**** EVAL EPOCH %03d END****' % (epoch))
+        log_string('**** EVAL EPOCH %03d START****' % (epoch))
+        now_miou = evaluate_one_epoch()
             
         # Save checkpoint
         if(now_miou>max_miou):
@@ -215,6 +213,10 @@ def train(start_epoch):
                 save_dict['model_state_dict'] = net.state_dict()
             torch.save(save_dict, os.path.join(LOG_DIR, 'checkpoint.tar'))
             max_miou = now_miou
+            
+        log_string('Best mIoU = {:2.2f}%'.format(max_miou*100))
+        log_string('**** EVAL EPOCH %03d END****' % (epoch))
+        log_string('')
 
 
 if __name__ == '__main__':

@@ -42,7 +42,7 @@ class SemanticKITTI(torch_data.Dataset):
             self.test_scan_number = str(test_id)
 
         self.mode = mode
-        train_list, val_list, test_list = DP.get_file_list(self.dataset_path, str(test_id))
+        train_list, val_list, test_list = DP.get_file_list(self.dataset_path, str(test_id))     # 默认08作为验证集
         if mode == 'training':
             self.data_list = train_list
         elif mode == 'validation':
@@ -56,8 +56,8 @@ class SemanticKITTI(torch_data.Dataset):
         self.possibility = []
         self.min_possibility = []
         if mode == 'test':
-            path_list = self.data_list
-            for test_file_name in path_list:
+            self.path_list = self.data_list
+            for test_file_name in self.path_list:
                 points = np.load(test_file_name)
                 self.possibility += [np.random.rand(points.shape[0]) * 1e-3]
                 self.min_possibility += [float(np.min(self.possibility[-1]))]
@@ -92,7 +92,7 @@ class SemanticKITTI(torch_data.Dataset):
         else:
             cloud_ind = int(np.argmin(self.min_possibility))
             pick_idx = np.argmin(self.possibility[cloud_ind])
-            pc_path = path_list[cloud_ind]
+            pc_path = self.path_list[cloud_ind]
             pc, tree, labels = self.get_data(pc_path)
             selected_pc, selected_labels, selected_idx = self.crop_pc(pc, labels, tree, pick_idx)
 

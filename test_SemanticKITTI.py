@@ -20,12 +20,13 @@ from sklearn.metrics import confusion_matrix
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--checkpoint_path', default='output/checkpoint.tar', help='Model checkpoint path [default: None]')
+# parser.add_argument('--checkpoint_path', default='output/checkpoint.tar', help='Model checkpoint path [default: None]')
+parser.add_argument('--checkpoint_path', default='/data/liuxuexun/mycode/RandLA-Net-Pytorch-New2/train_output/2023-02-27_07-20-21/checkpoint.tar', help='Model checkpoint path [default: None]')
 parser.add_argument('--log_dir', default='test_output', help='Dump dir to save model checkpoint [default: log]')
-parser.add_argument('--gpu', type=int, default=0, help='which gpu do you want to use [default: 2], -1 for cpu')
+parser.add_argument('--gpu', type=int, default=1, help='which gpu do you want to use [default: 2], -1 for cpu')
 parser.add_argument('--gen_pseudo', default=False, action='store_true', help='generate pseudo labels or not')       
 parser.add_argument('--retrain', default=False, action='store_true', help='Re-training with pseudo labels or not')      
-parser.add_argument('--test_area', type=str, default='11', help='options: 11,12,13,14,15,16,17,18,19,20,21')
+parser.add_argument('--test_area', type=str, default='08', help='options: 11,12,13,14,15,16,17,18,19,20,21')
 
 
 FLAGS = parser.parse_args()

@@ -38,7 +38,8 @@ sh compile_op.sh
 
 ## Results
 
-We train this network for 100 epoches, and the eval results in the Area 5 are as follows:mIoU = 62.59
+### S3DIS
+We train this network for 100 epoches, and the eval results in the Area 5 are as follows: mIoU = 62.59%
 
 ```
 --------------------------------------------------------------------------------------
@@ -49,5 +50,12 @@ We train this network for 100 epoches, and the eval results in the Area 5 are as
 while [SQN](https://github.com/QingyongHu/SQN) shows the result(mIoU) of RandLA-Net of Area5 is 63.59.
 
 our results are close to the original paper.
+
+### SemanticKITTI
+We train the network for 100 epoches, and the eval results(after voting) in the Seq 08 are as follows: mIoU = 54.62%
+
+--------------------------------------------------------------------------------------------------------------------------
+54.62 | 93.12 18.31 30.68 79.83 45.59 51.81 70.18  0.00 92.15 41.53 78.42  1.09 87.61 46.32 84.30 58.67 72.12 52.28 33.67 
+--------------------------------------------------------------------------------------------------------------------------
 
 The checkpoint is in the output folder.

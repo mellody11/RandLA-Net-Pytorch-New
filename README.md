@@ -39,7 +39,7 @@ sh compile_op.sh
 ## Results
 
 ### S3DIS
-We train this network for 100 epoches, and the eval results in the Area 5 are as follows: mIoU = 62.59%
+We train this network for 100 epoches, and the eval results(after voting) in the Area 5 are as follows: mIoU = 62.59%
 
 ```
 --------------------------------------------------------------------------------------

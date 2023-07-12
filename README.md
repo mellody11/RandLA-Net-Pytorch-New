@@ -2,7 +2,7 @@
 
 This repository contains a PyTorch implementation of [RandLA-Net](http://arxiv.org/abs/1911.11236) on S3DIS and Semantickitti.
 
-**This repository is mainly based on this [repository](https://github.com/qiqihaer/RandLA-Net-pytorch)**
+**This repository is mainly based on the [repository](https://github.com/qiqihaer/RandLA-Net-pytorch)**
 
 ## Preparation(S3DIS for example)
 

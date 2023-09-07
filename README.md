@@ -15,7 +15,7 @@ This repository contains a PyTorch implementation of [RandLA-Net](http://arxiv.o
 sh compile_op.sh
 ```
 
-5. Attention: please check out *./utils/nearest_neighbors/lib/python/KNN_NanoFLANN-0.0.0-py3.7-linux-x86_64.egg/* and copy the **.so** file to the parent folder **(update in 2023.2.23: We provide a **.so** file for python3.7, and you don't need to copy(even compile the cpp code) if you are using python3.7)**
+5. Attention: please check out *./utils/nearest_neighbors/lib/python/KNN_NanoFLANN-0.0.0-py3.7-linux-x86_64.egg/* and copy the **.so** file to the parent folder **(update in 2023.2.23: We provide a **.so** file for python3.7, and you don't need to copy(even don't need to compile the cpp code) if you are using python3.7)**
 6. Download the Stanford3dDataset_v1.2_Aligned_Version[ dataset](https://docs.google.com/forms/d/e/1FAIpQLScDimvNMCGhy_rmBA2gHfDu3naktRm6A8BPwAWWDv-Uhm6Shw/viewform?c=0&w=1), and preprocess the data:
 
 ```
@@ -39,6 +39,7 @@ sh compile_op.sh
 ## Results
 
 ### S3DIS
+
 We train this network for 100 epoches, and the eval results(after voting) in the Area 5 are as follows: mIoU = 62.59%
 
 ```
@@ -52,6 +53,7 @@ while [SQN](https://github.com/QingyongHu/SQN) shows the result(mIoU) of RandLA-
 our results are close to the original paper.
 
 ### SemanticKITTI
+
 We train the network for 100 epoches, and the eval results(after voting) in the Seq 08 are as follows: mIoU = 54.62%
 
 ```

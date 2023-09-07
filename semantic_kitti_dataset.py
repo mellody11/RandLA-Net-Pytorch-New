@@ -13,13 +13,13 @@ class SemanticKITTI(torch_data.Dataset):
         self.dataset_path = '/data/dataset/SemanticKitti/dataset/sequences_0.06'
         self.label_to_names = {0: 'unlabeled',
                                1: 'car',
-                               2: 'bicycle',
-                               3: 'motorcycle',
+                               2: 'bicycle',        # 少数类
+                               3: 'motorcycle',     # 少数类
                                4: 'truck',
                                5: 'other-vehicle',
-                               6: 'person',
-                               7: 'bicyclist',
-                               8: 'motorcyclist',
+                               6: 'person',                 # 少数类
+                               7: 'bicyclist',              # 少数类
+                               8: 'motorcyclist',           # 少数类
                                9: 'road',
                                10: 'parking',
                                11: 'sidewalk',

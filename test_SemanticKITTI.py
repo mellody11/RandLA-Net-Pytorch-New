@@ -46,7 +46,9 @@ def log_string(out_str):
     print(out_str)
 
 test_dataset = SemanticKITTI('test', FLAGS.test_area)
-test_dataloader = DataLoader(test_dataset, batch_size=cfg.val_batch_size, shuffle=True, collate_fn=test_dataset.collate_fn)
+
+# don't add some workers at here or it will cause some bug
+test_dataloader = DataLoader(test_dataset, batch_size=cfg.val_batch_size, shuffle=True, collate_fn=test_dataset.collate_fn) 
 
 print(len(test_dataset), len(test_dataloader))
 

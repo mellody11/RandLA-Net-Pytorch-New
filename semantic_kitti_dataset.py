@@ -42,25 +42,21 @@ class SemanticKITTI(torch_data.Dataset):
             self.test_scan_number = str(test_id)
 
         self.mode = mode
-        self.train_list, self.val_list, self.test_list = DP.get_file_list(self.dataset_path, str(test_id))     # 默认08作为验证集
-
+        train_list, val_list, test_list = DP.get_file_list(self.dataset_path, str(test_id))     # 默认08作为验证集
+        if mode == 'training':
+            self.data_list = train_list
+        elif mode == 'validation':
+            self.data_list = val_list
+        elif mode == 'test':
+            self.data_list = test_list
 
         # self.data_list = self.data_list[0:1]
-        self.train_list = DP.shuffle_list(self.train_list)
-        self.val_list = DP.shuffle_list(self.val_list)
+        self.data_list = DP.shuffle_list(self.data_list)
 
         self.possibility = []
         self.min_possibility = []
-        if mode == 'training':
-            self.num_per_epoch = int(len(self.train_list) / cfg.batch_size) * cfg.batch_size
-            self.path_list = self.train_list
-        elif mode == 'validation':
-            self.num_per_epoch = int(len(self.val_list) / cfg.val_batch_size) * cfg.val_batch_size
-            cfg.val_steps = int(len(self.val_list) / cfg.batch_size)
-            self.path_list = self.val_list
-        elif mode == 'test':
-            self.num_per_epoch = int(len(self.test_list) / cfg.val_batch_size) * cfg.val_batch_size * 4
-            self.path_list = self.test_list
+        if mode == 'test':
+            self.path_list = self.data_list
             for test_file_name in self.path_list:
                 points = np.load(test_file_name)
                 self.possibility += [np.random.rand(points.shape[0]) * 1e-3]
@@ -73,7 +69,7 @@ class SemanticKITTI(torch_data.Dataset):
 
 
     def __len__(self):
-        return self.num_per_epoch
+        return len(self.data_list)
 
 
     def __getitem__(self, item):

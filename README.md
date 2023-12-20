@@ -8,7 +8,7 @@ This repository contains a PyTorch implementation of [RandLA-Net](http://arxiv.o
 
 1. Clone this repository
 2. Install some Python dependencies, such as scikit-learn. All packages can be installed with pip.
-3. env : ubuntu 18.04, python 3.7.16, torch 1.12.1, numpy 1.21.5, torchvision 0.13.1, scikit-learn 0.22.2, pandas 1.3.5, tqdm 4.64.1
+3. env : ubuntu 18.04, python 3.7.16, torch 1.12.1, numpy 1.21.5, torchvision 0.13.1, scikit-learn 0.22.2, pandas 1.3.5, tqdm 4.64.1, Cython 0.29.33 **\(Cython is important!\)**
 4. Install python functions. the functions and the codes are copied from the [official implementation with Tensorflow](https://github.com/QingyongHu/RandLA-Net).
 
 ```

@@ -17,7 +17,7 @@ sh compile_op.sh
 
 > Attention: please check out *./utils/nearest_neighbors/lib/python/KNN_NanoFLANN-0.0.0-py3.7-linux-x86_64.egg/* and copy the **.so** file to the parent folder.
 > 
-> **Update in 2023.2.23: We provide a **.so** file for python3.7, and you don't need to copy(even don't need to compile the cpp code) if you are using python3.7.**
+> **Update in 2023.2.23: We provide a **.so** file for python3.7, and you don't need to compile the cpp code if you are using python3.7.**
 5. Download the Stanford3dDataset_v1.2_Aligned_Version[ dataset](https://docs.google.com/forms/d/e/1FAIpQLScDimvNMCGhy_rmBA2gHfDu3naktRm6A8BPwAWWDv-Uhm6Shw/viewform?c=0&w=1), and preprocess the data:
 
 ```

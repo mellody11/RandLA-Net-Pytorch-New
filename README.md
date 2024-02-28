@@ -50,9 +50,9 @@ We train this network for 100 epoches, and the eval results(after voting) in the
 --------------------------------------------------------------------------------------
 ```
 
-while [SQN](https://github.com/QingyongHu/SQN) shows the result(mIoU) of RandLA-Net of Area5 is 63.59.
+While [SQN](https://github.com/QingyongHu/SQN) shows the result(mIoU) of RandLA-Net of Area5 is 63.59.
 
-our results are close to the original paper.
+Our results are close to the original paper.
 
 ### SemanticKITTI
 

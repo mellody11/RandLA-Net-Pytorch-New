@@ -67,5 +67,8 @@ We train the network for 100 epoches, and the eval results(after voting) in the 
 The checkpoint is in the output folder.
 
 ### Model
-We provode the pretrained model for the Area5 of S3DIS.
+We provode the pretrained models for the Area5 of S3DIS and SemanticKITTI.
+
 S3DIS(Area5): [link](https://drive.google.com/file/d/1VMdJFrPS0TixOKDiRB3AnEQg0JwimAoi/view?usp=drive_link)
+
+SemanticKITTI: [link](https://drive.google.com/file/d/16NYXHN8Yjf_63VCGphP4RhvgTUBLCO3Q/view?usp=drive_link)

@@ -144,8 +144,8 @@ def test(dataset, gen_pseudo=False):
             point_idx = end_points['input_inds'].cpu().numpy()
             cloud_idx = end_points['cloud_inds'].cpu().numpy()
     
-            
-            stacked_probs = torch.reshape(stacked_probs, [cfg.val_batch_size, cfg.num_points,               # 应该是这个reshape出问题了，不应该reshape，而是transpose？
+            batchsize = end_points['logits'].shape[0]
+            stacked_probs = torch.reshape(stacked_probs, [batchsize, cfg.num_points,               # 应该是这个reshape出问题了，不应该reshape，而是transpose？
                                         cfg.num_classes])
             stacked_probs = F.softmax(stacked_probs, dim=2).cpu().numpy()
             stacked_labels = stacked_labels.cpu().numpy()
@@ -233,7 +233,7 @@ def test(dataset, gen_pseudo=False):
             val_total_seen = 0
 
             for j in range(len(test_probs)):
-                test_file_name = dataset.test_list[j]
+                test_file_name = dataset.data_list[j]
                 frame = test_file_name.split('/')[-1][:-4]
                 proj_path = join(dataset.dataset_path, dataset.test_scan_number, 'proj')
                 proj_file = join(proj_path, str(frame) + '_proj.pkl')

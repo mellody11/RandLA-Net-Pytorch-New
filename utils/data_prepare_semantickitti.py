@@ -48,7 +48,7 @@ for seq_id in seq_list:
             np.save(join(label_path_out, scan_id)[:-4], sub_labels)
             with open(KDTree_save, 'wb') as f:                          # 保存pkl文件(KDTree文件)
                 pickle.dump(search_tree, f)
-            if seq_id == '00':                                          # sequence08作为验证集,需要生成下采样点云对原始点云映射的project文件
+            if seq_id == '08':                                          # sequence08作为验证集,需要生成下采样点云对原始点云映射的project文件
                 proj_path = join(seq_path_out, 'proj')
                 os.makedirs(proj_path) if not exists(proj_path) else None
                 proj_inds = np.squeeze(search_tree.query(points, return_distance=False))        # 在子云的KDTree中取一个最近邻(没有指定K默认取1个近邻)

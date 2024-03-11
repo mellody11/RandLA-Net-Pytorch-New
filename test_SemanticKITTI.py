@@ -145,7 +145,7 @@ def test(dataset, gen_pseudo=False):
             cloud_idx = end_points['cloud_inds'].cpu().numpy()
     
             batchsize = end_points['logits'].shape[0]
-            stacked_probs = torch.reshape(stacked_probs, [batchsize, cfg.num_points,               # 应该是这个reshape出问题了，不应该reshape，而是transpose？
+            stacked_probs = torch.reshape(stacked_probs, [batchsize, cfg.num_points,            
                                         cfg.num_classes])
             stacked_probs = F.softmax(stacked_probs, dim=2).cpu().numpy()
             stacked_labels = stacked_labels.cpu().numpy()

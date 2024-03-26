@@ -18,7 +18,7 @@ This repository contains a PyTorch implementation of [RandLA-Net](http://arxiv.o
    scikit-learn 0.22.2
    pandas 1.3.5
    tqdm 4.64.1
-   Cython 0.29.33 **\(Cython is important!\)**
+   Cython 0.29.33 (Cython is important!)
    ```
    
 4. Install python functions. the functions and the codes are copied from the [official implementation with Tensorflow](https://github.com/QingyongHu/RandLA-Net).

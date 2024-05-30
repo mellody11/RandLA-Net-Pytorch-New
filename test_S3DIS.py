@@ -75,10 +75,8 @@ else:
 class ModelTester:
     def __init__(self, dataset):
 
-        self.test_probs = [np.zeros(shape=[l.shape[0], dataset.num_classes], dtype=np.float32) # 初始化一个全零矩阵,用于放入Area6下的48个场景所有点的预测
+        self.test_probs = [np.zeros(shape=[l.shape[0], dataset.num_classes], dtype=np.float32) # 初始化一个全零矩阵,用于放入测试集下的所有场景中所有点的预测
                            for l in dataset.input_labels['validation']]
-
-        # self.softmax = net.add_module('softmax', nn.Softmax())
 
     def test(self, dataset, num_vote=100):
 
@@ -146,14 +144,14 @@ class ModelTester:
                 stacked_probs = F.softmax(stacked_probs, dim=2).cpu().numpy()
                 stacked_labels = stacked_labels.cpu().numpy()
 
-                for j in range(np.shape(stacked_probs)[0]):     # batchsize次（20次）循环，这个for没看懂，看懂了就知道每个场景下的点云正确率怎么来的了
-                    probs = stacked_probs[j, :, :]      # 取这个batch下第j个的预测结果（分数）
-                    p_idx = point_idx[j, :]             # 取这个batch下第j个的场景中，本次预测结果的点的序号
-                    c_i = cloud_idx[j][0]               # 预测的结果来自第j个场景，c_i是该点云的编号
-                    self.test_probs[c_i][p_idx] = test_smooth * self.test_probs[c_i][p_idx] + (1 - test_smooth) * probs # 相当于是一个互补滤波？ 对预测分数进行更新（累加）这里应该就是vote的核心
+                for j in range(np.shape(stacked_probs)[0]):     # 逐个batch进行计算
+                    probs = stacked_probs[j, :, :]      # 当前batch的预测结果（分数）
+                    p_idx = point_idx[j, :]             # 当前batch的点的序号
+                    c_i = cloud_idx[j][0]               # 当前batch归属于哪个场景
+                    self.test_probs[c_i][p_idx] = test_smooth * self.test_probs[c_i][p_idx] + (1 - test_smooth) * probs # voting操作，平均多次推理的结果，让结果更稳定平滑
                 step_id += 1
 
-            # new_min = np.min(dataset.min_possibility['validation'])
+            # new_min = np.min(dataset.min_possibility['validation'])       注释掉是因为希望只推理一遍就行了
             new_min = 7.7
             log_string('Epoch {:3d}, end. Min possibility = {:.1f}'.format(epoch_id, new_min))
 
@@ -163,10 +161,10 @@ class ModelTester:
                 last_min += 1
 
                 # Show vote results (On subcloud so it is not the good values here)
-                log_string('\nConfusion on sub clouds')
+                log_string('\nConfusion on sub clouds')                                 # 下面的结果是在网格采样后的子云的结果
                 confusion_list = []
 
-                num_val = len(dataset.input_labels['validation'])           # 验证区域有多少个场景      
+                num_val = len(dataset.input_labels['validation'])           # 验证集有多少个场景      
 
                 for i_test in range(num_val):
                     probs = self.test_probs[i_test]                         # 取出第i_test个场景的vote后的结果
@@ -204,7 +202,7 @@ class ModelTester:
                         proj_probs_list += [probs]                          # 将原始点云的预测结果保存在这个list中
 
                     # Show vote results
-                    log_string('Confusion on full clouds')
+                    log_string('Confusion on full clouds')                  # 下面的结果是在网格采样前的结果
                     confusion_list = []
                     for i_test in range(num_val):
                         # Get the predicted labels

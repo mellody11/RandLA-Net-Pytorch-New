@@ -81,12 +81,12 @@ We train the network for 100 epoches, and the eval results(after voting) in the 
 
 The checkpoint is in the output folder.
 
-### Model
+## Model
 We provode the pretrained models for S3DIS(Area5) and SemanticKITTI.
 
 S3DIS(Area5): [link](https://drive.google.com/file/d/1VMdJFrPS0TixOKDiRB3AnEQg0JwimAoi/view?usp=drive_link)
 
 SemanticKITTI: [link](https://drive.google.com/file/d/16NYXHN8Yjf_63VCGphP4RhvgTUBLCO3Q/view?usp=drive_link)
 
-### Acknowledgment
+## Acknowledgment
 This code is mainly based on the [repository](https://github.com/qiqihaer/RandLA-Net-pytorch). Thanks for their efforts.

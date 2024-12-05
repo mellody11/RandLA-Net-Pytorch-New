@@ -15,13 +15,13 @@ from helper_tool import DataProcessing as DP
 from helper_ply import write_ply
 from datetime import datetime
 import time
-
+import warnings
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--checkpoint_path', default='output/checkpoint_Area_1.tar', help='Model checkpoint path [default: None]')
+parser.add_argument('--checkpoint_path', default='output/checkpoint_Area_5.tar', help='Model checkpoint path [default: None]')
 parser.add_argument('--log_dir', default='test_output', help='Dump dir to save model checkpoint [default: log]')
 parser.add_argument('--gpu', type=int, default=0, help='which gpu do you want to use [default: 2], -1 for cpu')
-parser.add_argument('--test_area', type=int, default=2, help='Which area to use for test, option: 1-6 [default: 6]')
+parser.add_argument('--test_area', type=int, default=5, help='Which area to use for test, option: 1-6 [default: 6]')
 FLAGS = parser.parse_args()
 #################################################   log   #################################################
 

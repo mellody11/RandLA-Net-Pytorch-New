@@ -18,7 +18,7 @@ parser.add_argument('--checkpoint_path', default=None, help='Model checkpoint pa
 parser.add_argument('--log_dir', default='train_output', help='Dump dir to save model checkpoint [default: log]')
 parser.add_argument('--max_epoch', type=int, default=100, help='Epoch to run [default: 100]')    # 50够了
 parser.add_argument('--gpu', type=int, default=0, help='which gpu do you want to use [default: 2], -1 for cpu')
-parser.add_argument('--test_area', type=int, default=5, help='Which area to use for test, option: 1-6 [default: 6]')
+parser.add_argument('--test_area', type=int, default=5, help='Which area to use for test (others use to train), option: 1-6 [default: 6]')
 FLAGS = parser.parse_args()
 
 #################################################   log   #################################################

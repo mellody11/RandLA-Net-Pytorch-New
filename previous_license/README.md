@@ -1,0 +1,1 @@
+We modify the code from https://github.com/qiqihaer/RandLA-Net-pytorch to adapt S3DIS dataset.
